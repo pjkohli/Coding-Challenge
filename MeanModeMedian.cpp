@@ -1,12 +1,13 @@
 
 #include <iostream>
+#include<math.h>
 const int MaxLength = 100;
 using namespace std ;
 
 //Function to merge two sublists
 void merge(double arr[], int first, int last, int mid);
 
-//Function to sort an array. Complexity - O(logn)
+//Function to sort an array. Complexity - O(nlogn)
 void mergesort(double arr[], int first, int last)
 {
     int mid;
@@ -79,9 +80,11 @@ void mean(double arr[], int n)
 void mode(double arr[], int n)
 {
     int i=0;
+    int k=0;
     int count = 0;
     int maxcount = 0;
     double result;
+    double m[MaxLength];
     while(i<n)
     {
         count = 1;
@@ -94,10 +97,52 @@ void mode(double arr[], int n)
             maxcount = count;
             result = arr[i];
         }
+        
         i = i + count;
     }
-   // cout<<"\n count is "<<maxcount;
-    cout<<"\n Mode is "<< result<<" with frequency: "<< maxcount;
+    
+    i=0;
+    
+    while(i<n)
+    {
+        count = 1;
+        for (int j=i+1; j<n && arr[i] == arr[j]; j++)
+        {
+            count++;
+        }
+        if (maxcount == count)
+        {
+            m[k] = arr[i];
+            k++;
+        }
+        
+        i = i + count;
+    }
+    
+    int x = ceil((float)n/maxcount);
+   // cout << "\n x is: "<<x;
+    //cout << " \n floor is : "<< ceil((float)n/maxcount);
+  
+    if(k == x)
+    {
+        cout<< "\n No mode";
+    }
+    
+    else
+    {   if(k==1)
+        // cout<<"\n count is "<<maxcount;
+        cout<<"\n Mode is "<< result<<" with frequency: "<< maxcount;
+    
+        else
+        {
+            cout<<"\n The series is multi - modal";
+            cout<<"\n The Modes are: ";
+            for(int i =0; i<k; i++)
+                cout << m[i]<< "  ";
+            cout<< "with frequency: "<<maxcount;
+        }
+    }
+        
  
 }
 
